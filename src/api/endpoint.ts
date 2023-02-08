@@ -1,1 +1,1 @@
-export const API_ENDPOINT = "https://jsonplaceholder.typicode.com";
+export const API_ENDPOINT = 'https://api.kconnect.taisanvn.com';

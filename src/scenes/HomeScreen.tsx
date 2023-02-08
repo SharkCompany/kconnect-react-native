@@ -16,7 +16,7 @@ const HomePage = ({ navigation, route }: RootStackScreenProps<"Home">) => {
 
   return (
     <BaseView>
-      <View className="space-y-2 px-4">
+      <View className="space-y-2 px-4 py-2">
         <View className="flex-row justify-around space-x-8">
           <TouchableOpacity
             onPress={() => setIsModalVisible(true)}
@@ -43,7 +43,7 @@ const HomePage = ({ navigation, route }: RootStackScreenProps<"Home">) => {
           <TouchableOpacity
             className="flex-row space-x-2 items-center"
             onPress={() => {
-              navigation.navigate("CallingScreen");
+              navigation.navigate("CreateInsantMeeting");
               setIsModalVisible(false);
             }}
           >

@@ -1,19 +1,20 @@
 import type {
-	CompositeScreenProps,
-	NavigatorScreenParams,
+  CompositeScreenProps,
+  NavigatorScreenParams,
 } from '@react-navigation/native';
-import type { StackScreenProps } from '@react-navigation/stack';
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type {StackScreenProps} from '@react-navigation/stack';
+import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
-	Home: undefined;
-	EndCallScreen: undefined;
-	InputCodeScreen: undefined;
-	CallingScreen: undefined;
+  Home: undefined;
+  EndCallScreen: undefined;
+  InputCodeScreen: undefined;
+  CallingScreen: undefined;
+  CreateInsantMeeting: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
-	StackScreenProps<RootStackParamList, T>;
+  StackScreenProps<RootStackParamList, T>;
 
 // export type HomeTabParamList = {
 // 	Popular: undefined;
@@ -27,7 +28,7 @@ export type RootStackScreenProps<T extends keyof RootStackParamList> =
 // 	>;
 
 declare global {
-	namespace ReactNavigation {
-		interface RootParamList extends RootStackParamList {}
-	}
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
 }

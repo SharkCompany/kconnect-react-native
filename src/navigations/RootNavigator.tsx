@@ -7,6 +7,7 @@ import EndCallScreen from 'scenes/EndCallScreen';
 import InputCodeScreen from 'scenes/InputCodeScreen';
 import HomeHeader from 'components/home-header/HomeHeader';
 import CallingScreen from 'scenes/CallingScreen';
+import CreateInsantMeeting from 'scenes/CreateInstantMeetingScreen';
 
 type Props = {};
 
@@ -35,6 +36,11 @@ const RootNavigator = (props: Props) => {
 				name="InputCodeScreen"
 				component={InputCodeScreen}
 				options={{ title: 'Join with given code' }}
+			/>
+			<RootStack.Screen
+				name="CreateInsantMeeting"
+				component={CreateInsantMeeting}
+				options={{ title: 'Create Meeting' }}
 			/>
 		</RootStack.Navigator>
 	);

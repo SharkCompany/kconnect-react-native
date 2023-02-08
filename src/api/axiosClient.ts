@@ -15,29 +15,29 @@ const axiosClient = axios.create({
 });
 
 // Add a request interceptor
-axiosClient.interceptors.request.use(
-	async function (config: AxiosRequestConfig) {
-		config.headers = config.headers ?? {};
-		// Do something before request is sent
-		let token = await getLocalData(LOCAL_STORAGE_ENUM.TOKEN);
-		if (token) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
+// axiosClient.interceptors.request.use(
+// 	async function (config: AxiosRequestConfig) {
+// 		config.headers = config.headers ?? {};
+// 		// Do something before request is sent
+// 		let token = await getLocalData(LOCAL_STORAGE_ENUM.TOKEN);
+// 		if (token) {
+// 			config.headers.Authorization = `Bearer ${token}`;
+// 		}
 
-		return config;
-	},
-	function (error: any) {
-		// Do something with request error
-		return Promise.reject(error);
-	}
-);
+// 		return config;
+// 	},
+// 	function (error: any) {
+// 		// Do something with request error
+// 		return Promise.reject(error);
+// 	}
+// );
 
 // Add a response interceptor
 axiosClient.interceptors.response.use(
 	function (response: AxiosResponse) {
 		// Any status code that lie within the range of 2xx cause this function to trigger
 		// Do something with response data
-		return response.data;
+		return response;
 	},
 	function (error: any) {
 		// Any status codes that falls outside the range of 2xx cause this function to trigger
