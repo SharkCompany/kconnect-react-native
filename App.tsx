@@ -25,6 +25,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {Provider} from 'react-redux';
+import store from 'store/index';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Navigator from 'navigations/index';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -47,9 +51,12 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView>
-      <Text className="text-red-500">hello</Text>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        {/* <Navigator /> */}
+        <Navigator />
+      </SafeAreaProvider>
+    </Provider>
   );
 }
 
