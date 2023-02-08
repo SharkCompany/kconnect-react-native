@@ -16,7 +16,7 @@
       "navigations/*": ["src/navigations/*"],
       "store/*": ["src/store/*"],
       "scenes/*": ["src/scenes/*"],
-      "utils/*": ["src/utils/*"],
+      "meeting/*": ["src/meeting/*"],
       "src/*": ["src/*"]
     }
   }

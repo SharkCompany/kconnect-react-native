@@ -16,6 +16,7 @@ module.exports = {
           store: './src/store',
           scenes: './src/scenes',
           utils: './src/utils',
+          meeting: './src/meeting',
         },
       },
     ],

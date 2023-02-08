@@ -5,30 +5,22 @@
  * @format
  */
 
+import type { PropsWithChildren } from 'react';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
-  View,
+  Text, useColorScheme,
+  View
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {Provider} from 'react-redux';
-import store from 'store/index';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import MeetingContextComponent from './src/meeting/MeetingContextComponent';
 import Navigator from 'navigations/index';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {
+  Colors
+} from 'react-native/Libraries/NewAppScreen';
+import { Provider } from 'react-redux';
+import store from 'store/index';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -52,10 +44,12 @@ function App(): JSX.Element {
 
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        {/* <Navigator /> */}
-        <Navigator />
-      </SafeAreaProvider>
+      <MeetingContextComponent>
+        <SafeAreaProvider>
+          {/* <Navigator /> */}
+          <Navigator />
+        </SafeAreaProvider>
+      </MeetingContextComponent>
     </Provider>
   );
 }
