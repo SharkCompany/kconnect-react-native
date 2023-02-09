@@ -8,10 +8,16 @@ import {
   PlainText,
 } from 'components/CustomizedText';
 import RequestJoinRoomForm from 'components/RequestJoinRoomForm';
+import {RootStackScreenProps} from 'navigations/type';
 
 type Props = {};
 
-const InputCodeScreen = (props: Props) => {
+const InputCodeScreen = ({
+  navigation,
+}: RootStackScreenProps<'InputCodeScreen'>) => {
+  const handleJoinMeeting = () => {
+    navigation.navigate('CallingScreen');
+  };
   return (
     <BaseView>
       <View className="px-4 space-y-2">
@@ -25,7 +31,7 @@ const InputCodeScreen = (props: Props) => {
 						Join
 					</Heading3>
 				</TouchableOpacity> */}
-        <RequestJoinRoomForm />
+        <RequestJoinRoomForm joinRoom={handleJoinMeeting} />
       </View>
     </BaseView>
   );

@@ -1,4 +1,7 @@
 import {roomApi} from 'api/roomApi';
+import {UpdateAgora} from 'meeting/meeting.type';
+import MeetingContext from 'meeting/MeetingContext';
+import {useContext} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Heading3} from './CustomizedText';
@@ -9,7 +12,11 @@ type FormData = {
   description: string;
 };
 
-export default function CreateMeetingForm() {
+interface Props {
+  joinRoom: () => void;
+}
+
+export default function CreateMeetingForm({joinRoom}: Props) {
   const {
     control,
     handleSubmit,
@@ -21,6 +28,8 @@ export default function CreateMeetingForm() {
       description: '',
     },
   });
+
+  const dispatch = useContext(MeetingContext).MeetingDispatch;
 
   const handleCreateRoom = async (data: FormData) => {
     try {
@@ -37,7 +46,20 @@ export default function CreateMeetingForm() {
           uid: 1,
         },
       });
-      console.log(res.data);
+      const {rtcToken, rtmToken, channel} = res.data.agora;
+      const {roomCode, roomId, roomName, description} = res.data.room;
+      const updateAgora: UpdateAgora = {
+        rtcToken,
+        rtmToken,
+        channel,
+        roomId,
+        roomDescription: description,
+        roomName,
+        roomCode,
+        username: data.username,
+      };
+      dispatch({type: 'update_agora', payload: updateAgora});
+      joinRoom();
     } catch (error: any) {
       Alert.alert('Can not create data!');
       console.log(JSON.stringify(error));

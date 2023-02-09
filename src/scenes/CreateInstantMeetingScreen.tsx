@@ -8,14 +8,22 @@ import {
   PlainText,
 } from 'components/CustomizedText';
 import CreateMeetingForm from 'components/CreateMeetingForm';
+import {RootStackScreenProps} from 'navigations/type';
 
 type Props = {};
 
-const CreateInsantMeeting = (props: Props) => {
+const CreateInsantMeeting = ({
+  navigation,
+  route,
+}: RootStackScreenProps<'CreateInsantMeeting'>) => {
+  const handleJoinMeeting = () => {
+    navigation.navigate('CallingScreen');
+  };
+
   return (
     <BaseView>
       <View className="px-4 space-y-2 py-2">
-        <CreateMeetingForm />
+        <CreateMeetingForm joinRoom={handleJoinMeeting} />
       </View>
     </BaseView>
   );

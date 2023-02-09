@@ -1,5 +1,8 @@
 import {roomApi} from 'api/roomApi';
 import {generateUid} from 'helpers/utils';
+import {UpdateAgora} from 'meeting/meeting.type';
+import MeetingContext from 'meeting/MeetingContext';
+import {useContext} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Heading3} from './CustomizedText';
@@ -9,7 +12,11 @@ type FormData = {
   roomCode: string;
 };
 
-export default function RequestJoinRoomForm() {
+interface Props {
+  joinRoom: () => void;
+}
+
+export default function RequestJoinRoomForm({joinRoom}: Props) {
   const {
     control,
     handleSubmit,
@@ -20,6 +27,8 @@ export default function RequestJoinRoomForm() {
       username: '',
     },
   });
+
+  const dispatch = useContext(MeetingContext).MeetingDispatch;
 
   const handleRequestJoinRoom = async (data: FormData) => {
     console.log(data);
@@ -37,6 +46,20 @@ export default function RequestJoinRoomForm() {
         },
       });
       console.log(res.data);
+      const {rtcToken, rtmToken, channel} = res.data.agora;
+      const {roomCode, roomId, roomName, description} = res.data.room;
+      const updateAgora: UpdateAgora = {
+        rtcToken,
+        rtmToken,
+        channel,
+        roomId,
+        roomDescription: description,
+        roomName,
+        roomCode,
+        username: data.username,
+      };
+      dispatch({type: 'update_agora', payload: updateAgora});
+      joinRoom();
     } catch (error: any) {
       Alert.alert(error.response.data);
       console.log(JSON.stringify(error.response.data));
