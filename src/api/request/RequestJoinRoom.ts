@@ -3,7 +3,7 @@ export interface RequestJoinRoomRequest {
     username: string;
   };
   room: {
-    roomCode: number;
+    roomCode: number | null;
   };
   agora: {
     uid: number;

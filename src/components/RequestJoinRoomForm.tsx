@@ -1,50 +1,49 @@
 import {roomApi} from 'api/roomApi';
+import {generateUid} from 'helpers/utils';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {Heading3} from './CustomizedText';
 
 type FormData = {
-  roomName: string;
   username: string;
-  description: string;
+  roomCode: string;
 };
 
-export default function CreateMeetingForm() {
+export default function RequestJoinRoomForm() {
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<FormData>({
     defaultValues: {
-      roomName: '',
+      roomCode: '',
       username: '',
-      description: '',
     },
   });
 
-  const handleCreateRoom = async (data: FormData) => {
+  const handleRequestJoinRoom = async (data: FormData) => {
+    console.log(data);
     try {
-      const res = await roomApi.createRoom({
+      const res = await roomApi.requestJoinRoom({
         user: {
           username: data.username,
         },
         room: {
-          roomName: data.roomName,
-          description: data.description,
+          roomCode: parseInt(data.roomCode),
         },
         agora: {
-          role: 'PUBLISHER',
-          uid: 1,
+          role: 'SUBCRIBER',
+          uid: generateUid(),
         },
       });
       console.log(res.data);
     } catch (error: any) {
-      Alert.alert('Can not create data!');
-      console.log(JSON.stringify(error));
+      Alert.alert(error.response.data);
+      console.log(JSON.stringify(error.response.data));
     }
   };
 
-  const onSubmit = (data: FormData) => handleCreateRoom(data);
+  const onSubmit = (data: FormData) => handleRequestJoinRoom(data);
 
   return (
     <View>
@@ -68,8 +67,7 @@ export default function CreateMeetingForm() {
         <Text className="text-red-500">*This is required.</Text>
       )}
 
-      <Text className="py-2 ">Meeting name: </Text>
-
+      <Text className="py-2 ">Room Code:</Text>
       <Controller
         control={control}
         rules={{
@@ -80,32 +78,13 @@ export default function CreateMeetingForm() {
             className=" bg-white p-2 border border-gray-300 rounded-md "
             onBlur={onBlur}
             onChangeText={onChange}
-            value={value}
+            value={value?.toString()}
+            keyboardType="numeric"
           />
         )}
-        name="roomName"
+        name="roomCode"
       />
-      {errors.roomName && (
-        <Text className="text-red-500">*This is required.</Text>
-      )}
-
-      <Text className="py-2 ">Description: </Text>
-      <Controller
-        control={control}
-        rules={{
-          required: true,
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
-            className=" bg-white p-2 border border-gray-300 rounded-md"
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="description"
-      />
-      {errors.description && (
+      {errors.username && (
         <Text className="text-red-500">*This is required.</Text>
       )}
 
@@ -113,7 +92,7 @@ export default function CreateMeetingForm() {
         onPress={handleSubmit(onSubmit)}
         className="items-end mt-6">
         <Heading3 className="bg-[#00AC47] py-2 px-4 rounded-md text-white font-semibold">
-          Create Room
+          Join
         </Heading3>
       </TouchableOpacity>
     </View>
