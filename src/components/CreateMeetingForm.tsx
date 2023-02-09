@@ -1,4 +1,5 @@
 import {roomApi} from 'api/roomApi';
+import {generateUid} from 'helpers/utils';
 import {UpdateAgora} from 'meeting/meeting.type';
 import MeetingContext from 'meeting/MeetingContext';
 import {useContext} from 'react';
@@ -43,10 +44,10 @@ export default function CreateMeetingForm({joinRoom}: Props) {
         },
         agora: {
           role: 'PUBLISHER',
-          uid: 1,
+          uid: generateUid(),
         },
       });
-      const {rtcToken, rtmToken, channel} = res.data.agora;
+      const {rtcToken, rtmToken, channel, uid} = res.data.agora;
       const {roomCode, roomId, roomName, description} = res.data.room;
       const updateAgora: UpdateAgora = {
         rtcToken,
@@ -57,6 +58,7 @@ export default function CreateMeetingForm({joinRoom}: Props) {
         roomName,
         roomCode,
         username: data.username,
+        uid,
       };
       dispatch({type: 'update_agora', payload: updateAgora});
       joinRoom();

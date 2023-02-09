@@ -46,7 +46,7 @@ export default function RequestJoinRoomForm({joinRoom}: Props) {
         },
       });
       console.log(res.data);
-      const {rtcToken, rtmToken, channel} = res.data.agora;
+      const {rtcToken, rtmToken, channel,uid} = res.data.agora;
       const {roomCode, roomId, roomName, description} = res.data.room;
       const updateAgora: UpdateAgora = {
         rtcToken,
@@ -57,6 +57,7 @@ export default function RequestJoinRoomForm({joinRoom}: Props) {
         roomName,
         roomCode,
         username: data.username,
+        uid,
       };
       dispatch({type: 'update_agora', payload: updateAgora});
       joinRoom();

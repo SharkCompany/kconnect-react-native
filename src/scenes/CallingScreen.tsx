@@ -1,7 +1,7 @@
-import {View, Text} from 'react-native';
 import React, {useContext} from 'react';
-import BaseView from 'components/BaseView';
+import AgoraCalling from 'components/AgoraCalling/AgoraCalling';
 import MeetingContext from 'meeting/MeetingContext';
+import {Text} from 'react-native';
 
 type Props = {};
 
@@ -13,17 +13,12 @@ const CallingScreen = (props: Props) => {
     roomDescription,
     rtcToken,
     rtmToken,
+    uid,
     channel,
   } = useContext(MeetingContext).MeetingState;
   return (
     <>
-      <Text>Room Name: {roomName} </Text>
-      <Text>Room Description: {roomDescription} </Text>
-      <Text>Room Code: {roomCode}</Text>
-      <Text>Room ID: {roomId}</Text>
-      <Text>Token RTC: {rtcToken}</Text>
-      <Text>Token RRM: {rtmToken}</Text>
-      <Text>Channel: {channel}</Text>
+      <AgoraCalling />
     </>
   );
 };

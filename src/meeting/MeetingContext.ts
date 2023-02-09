@@ -15,6 +15,7 @@ export interface IMeetingContextState {
   roomName: string | null;
   roomDescription: string | null;
   username: string | null;
+  uid: number | null;
 }
 
 export const initialContextState: IMeetingContextState = {
@@ -27,6 +28,7 @@ export const initialContextState: IMeetingContextState = {
   rtcToken: null,
   rtmToken: null,
   username: null,
+  uid: null,
 };
 
 export type TMeetingContextActions = 'update_meeting' | 'update_agora';

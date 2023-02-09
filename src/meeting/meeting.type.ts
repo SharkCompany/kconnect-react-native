@@ -7,4 +7,5 @@ export interface UpdateAgora {
   roomDescription: string;
   roomCode: number;
   username: string;
+  uid: number;
 }
