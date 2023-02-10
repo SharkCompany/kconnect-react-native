@@ -1,5 +1,5 @@
 import {Message} from 'models/Message';
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import {
   Text,
   TextInput,
@@ -13,10 +13,9 @@ import {faUser} from '@fortawesome/free-solid-svg-icons/faUser';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons/faPaperclip';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Controller, useForm} from 'react-hook-form';
+import MeetingContext from 'meeting/MeetingContext';
 
 type Props = {
-  messages: Message[];
-  socketId: string;
   onClose: () => void;
 };
 
@@ -24,8 +23,10 @@ type FormData = {
   content: string;
 };
 
-export default function ChatWrapper({messages, socketId, onClose}: Props) {
-  const inputRef = useRef<HTMLInputElement>(null);
+export default function ChatWrapper({onClose}: Props) {
+  const dispatch = useContext(MeetingContext).MeetingDispatch;
+
+  const {messagesInChannel, socket} = useContext(MeetingContext).MeetingState;
 
   const {
     control,
@@ -40,12 +41,18 @@ export default function ChatWrapper({messages, socketId, onClose}: Props) {
 
   const handleSendMessage = (data: FormData) => {
     console.log('handle send message: ', data);
+    dispatch({
+      type: 'send_message',
+      payload: data.content,
+    });
   };
 
   const onSubmit = (data: FormData) => {
     handleSendMessage(data);
     setValue('content', '');
   };
+
+  if (!socket?.id) return <Text>Waiting for socket connection</Text>;
 
   return (
     <View className="h-full flex ">
@@ -61,9 +68,9 @@ export default function ChatWrapper({messages, socketId, onClose}: Props) {
         </TouchableOpacity>
       </View>
       <View className="flex-1 ">
-        <ScrollView className='px-2'>
-          {messages.map(message => {
-            if (message.socketId == socketId)
+        <ScrollView className="px-2">
+          {messagesInChannel.map(message => {
+            if (message.socketId == socket.id)
               return <MyMessage message={message.content} />;
             return (
               <MemberMessage
@@ -108,7 +115,7 @@ export default function ChatWrapper({messages, socketId, onClose}: Props) {
 
 export const MyMessage = ({message}: {message: string}) => {
   return (
-    <View className="w-full px-1 pt-7">
+    <View className="w-full px-1 pt-2">
       <View className="w-2/3 relative right-0 ml-auto mr-0">
         <View className="items-baseline ml-auto mr-0">
           <View className="bg-[#00AC47] py-2 px-4 rounded-lg">
