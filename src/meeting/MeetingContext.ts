@@ -45,13 +45,15 @@ export type TMeetingContextActions =
   | 'update_agora'
   | 'join_room'
   | 'send_message'
-  | 'new_message';
+  | 'new_message'
+  | 'leave_room';
 
 export type TMeetingContextPayload =
   | Socket
   | UpdateAgora
   | EmitJoinRoomDTO
   | string
+  | null
   | Message;
 export interface IMeetingContextActions {
   type: TMeetingContextActions;
@@ -77,6 +79,8 @@ export const MeetingReducer = (
       const data = action.payload as EmitJoinRoomDTO;
       state.socket?.emit('joinRoom', data);
       return state;
+    case 'leave_room':
+      return {...state, messagesInChannel: []};
     case 'send_message':
       const mess: EmitNewMessageType = {
         content: action.payload as string,

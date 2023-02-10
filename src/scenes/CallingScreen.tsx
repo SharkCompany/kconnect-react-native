@@ -12,10 +12,9 @@ import {EmitJoinRoomDTO} from 'meeting/socket.type';
 import Modal from 'react-native-modal';
 
 import ChatWrapper from 'components/Chat';
+import {RootStackScreenProps} from 'navigations/type';
 
-type Props = {};
-
-const CallingScreen = (props: Props) => {
+const CallingScreen = ({navigation}: RootStackScreenProps<'CallingScreen'>) => {
   const dispatch = useContext(MeetingContext).MeetingDispatch;
   const {roomId, rtcToken, rtmToken, username, roomCode, roomName} =
     useContext(MeetingContext).MeetingState;
@@ -45,6 +44,14 @@ const CallingScreen = (props: Props) => {
     handleConnectChatSocket();
   }, []);
 
+  const handleEndCall = () => {
+    navigation.navigate('EndCallScreen');
+    dispatch({
+      type: 'leave_room',
+      payload: null,
+    });
+  };
+
   return (
     <BaseView className="bg-black">
       <View className="bg-black py-2 px-2 flex-row flex items-center justify-between">
@@ -65,7 +72,7 @@ const CallingScreen = (props: Props) => {
           </TouchableOpacity>
         </View>
       </View>
-      <AgoraCalling />
+      <AgoraCalling handleEndCall={handleEndCall} />
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}

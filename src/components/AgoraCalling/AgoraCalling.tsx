@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import AgoraUIKit from 'agora-rn-uikit';
 import {Text} from 'react-native';
 
-const UIKIT = () => {
+interface Props {
+  handleEndCall: () => void;
+}
+
+const UIKIT = ({handleEndCall}: Props) => {
   const [videoCall, setVideoCall] = useState(true);
   const connectionData = {
     appId: 'fc40b6a8f8b048bc8f277ddaf96be8be',
@@ -12,7 +16,10 @@ const UIKIT = () => {
   };
 
   const rtcCallbacks = {
-    EndCall: () => setVideoCall(false),
+    EndCall: () => {
+      setVideoCall(false);
+      handleEndCall();
+    },
   };
 
   console.log(videoCall);
