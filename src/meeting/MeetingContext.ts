@@ -1,7 +1,11 @@
 import {User} from 'models/User';
 import {createContext} from 'react';
 import {Socket} from 'socket.io-client';
-import {ClientToServerEvents, ServerToClientEvents} from './socket.type';
+import {
+  ClientToServerEvents,
+  EmitJoinRoomDTO,
+  ServerToClientEvents,
+} from './socket.type';
 import {} from './MeetingContextComponent';
 import {UpdateAgora} from './meeting.type';
 
@@ -31,9 +35,12 @@ export const initialContextState: IMeetingContextState = {
   uid: null,
 };
 
-export type TMeetingContextActions = 'update_meeting' | 'update_agora';
+export type TMeetingContextActions =
+  | 'update_meeting'
+  | 'update_agora'
+  | 'join_room';
 
-export type TMeetingContextPayload = Socket | UpdateAgora;
+export type TMeetingContextPayload = Socket | UpdateAgora | EmitJoinRoomDTO;
 export interface IMeetingContextActions {
   type: TMeetingContextActions;
   payload: TMeetingContextPayload;
@@ -54,6 +61,11 @@ export const MeetingReducer = (
     case 'update_agora':
       const payload = action.payload as UpdateAgora;
       return {...state, ...payload};
+    case 'join_room':
+      const data = action.payload as EmitJoinRoomDTO;
+      state.socket?.emit('joinRoom', data);
+
+      return state;
     default:
       return state;
   }

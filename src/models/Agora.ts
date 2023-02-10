@@ -4,3 +4,8 @@ export interface Agora {
   rtcToken: string;
   rtmToken: string;
 }
+
+export interface AgoraToken {
+  rtcToken: string;
+  rtmToken: string;
+}

@@ -12,6 +12,8 @@ import {ClientToServerEvents, ServerToClientEvents} from './socket.type';
 
 import {MeetingContextProvider} from './MeetingContext';
 import {SOCKET_ENDPOINT} from 'api/endpoint';
+import {Member} from 'models/Member';
+import {Room} from 'models/Room';
 
 export interface IMeetingContextProviderProps extends PropsWithChildren {}
 
@@ -48,6 +50,9 @@ const MeetingContextComponent: FunctionComponent<
   const startListening = useCallback(() => {
     socket.on('connect', () => {
       console.log('hi id: ', socket.id);
+    });
+    socket.on('newMemberJoinRoom', (member: Member, room: Room) => {
+      console.log('newMemberJoinRoom:', member, room);
     });
   }, []);
 
