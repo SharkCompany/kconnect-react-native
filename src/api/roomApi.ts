@@ -9,6 +9,7 @@ import {RequestJoinRoomResponse} from './response/RequestJoinRoom';
 export const roomApi = {
   createRoom: (request: CreateRoomRequest) => {
     const url = '/room/create-room';
+    console.log(url);
     return axiosClient.post<CreateRoomResponse>(url, request);
   },
   requestJoinRoom: (request: RequestJoinRoomRequest) => {

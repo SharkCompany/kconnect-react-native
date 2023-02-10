@@ -22,9 +22,9 @@ const MeetingContextComponent: FunctionComponent<
     Socket<ServerToClientEvents, ClientToServerEvents>
   >(
     io(SOCKET_ENDPOINT, {
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-      autoConnect: false,
+      reconnectionAttempts: 20,
+      reconnectionDelay: 500,
+      autoConnect: true,
     }),
   );
 

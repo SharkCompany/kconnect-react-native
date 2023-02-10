@@ -34,6 +34,7 @@ export default function CreateMeetingForm({joinRoom}: Props) {
 
   const handleCreateRoom = async (data: FormData) => {
     try {
+      console.log('create room', data);
       const res = await roomApi.createRoom({
         user: {
           username: data.username,
@@ -47,6 +48,7 @@ export default function CreateMeetingForm({joinRoom}: Props) {
           uid: generateUid(),
         },
       });
+      console.log("res",res);
       const {rtcToken, rtmToken, channel, uid} = res.data.agora;
       const {roomCode, roomId, roomName, description} = res.data.room;
       const updateAgora: UpdateAgora = {
@@ -64,7 +66,7 @@ export default function CreateMeetingForm({joinRoom}: Props) {
       joinRoom();
     } catch (error: any) {
       Alert.alert('Can not create data!');
-      console.log(JSON.stringify(error));
+      console.log("crfeatre data failed",JSON.stringify(error));
     }
   };
 

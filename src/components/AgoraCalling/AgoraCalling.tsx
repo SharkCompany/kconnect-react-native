@@ -5,15 +5,17 @@ import {Text} from 'react-native';
 const UIKIT = () => {
   const [videoCall, setVideoCall] = useState(true);
   const connectionData = {
-    appId: 'd278d9f67abf4ba282bdea40a66baf55',
-    channel: 'kakaka',
+    appId: 'fc40b6a8f8b048bc8f277ddaf96be8be',
+    channel: 'room1',
     token:
-      '007eJxTYGDoVPTwbdiTNn25/sa3q+4fUWXoyfzGHm2ZYm0/h9eyJk2BIcXI3CLFMs3MPDEpzSQp0cjCKCklNdHEINHMLCkxzdQ0ev+T5IZARoZL4irMjAwQCOKzMWQngiADAwAOSB7L',
+      '007eJxTYPhxJ8rw4/vJyhxmLceLZsvz2bZY/1w6SWKlWqz5vT2fOKIUGFKMzC1SLNPMzBOT0kySEo0sjJJSUhNNDBLNzJIS00xNzUKfJjcEMjKsN/NhZmSAQBCflaEoPz/XkIEBAHgHH7E=',
   };
 
   const rtcCallbacks = {
     EndCall: () => setVideoCall(false),
   };
+
+  console.log(videoCall);
 
   return videoCall ? (
     <AgoraUIKit connectionData={connectionData} rtcCallbacks={rtcCallbacks} />
