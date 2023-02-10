@@ -39,6 +39,7 @@ export default function ModalChat({
   });
 
   const handleSendMessage = (data: FormData) => {
+    console.log("send message",data.content);
     dispatch({
       type: 'send_message',
       payload: data.content,

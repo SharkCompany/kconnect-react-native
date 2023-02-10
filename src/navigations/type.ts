@@ -11,6 +11,7 @@ export type RootStackParamList = {
   InputCodeScreen: undefined;
   CallingScreen: undefined;
   CreateInsantMeeting: undefined;
+  DemoScreen: undefined;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =
