@@ -24,7 +24,7 @@ const RootNavigator = (props: Props) => {
       <RootStack.Screen
         name="Home"
         component={HomePage}
-        options={{header: () => <HomeHeader />}}
+        options={{headerShown: false}}
       />
       <RootStack.Screen
         name="EndCallScreen"
