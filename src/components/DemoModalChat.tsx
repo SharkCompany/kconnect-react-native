@@ -29,6 +29,49 @@ const messages: Message[] = [
     socketId: 'mocnien',
   },
   {
+    content: 'aka xade left rrihg ticog lnova hilarray ',
+    username: 'mocnien',
+    socketId: 'mocnien',
+  },
+  {
+    content: 'novapo ui huhuh kakak lol lfse',
+    username: 'novapo',
+    socketId: 'mocnien',
+  },
+  {
+    content: 'novapo',
+    username: 'novapo',
+    socketId: 'novapo',
+  },
+  {
+    content:
+      'fe novapo ujn hey jude don make it bad take a sad song anhd mkaer it butet ',
+    username: 'novapo',
+    socketId: 'novapo',
+  },
+  {
+    content:
+      'fe novapo ujn hey jude don make it bad take a sad song anhd mkaer it butet ',
+    username: 'novapo',
+    socketId: 'novapo',
+  },
+  {
+    content: 'aka xade left rrihg ticog lnova hilarray ',
+    username: 'mocnien',
+    socketId: 'mocnien',
+  },
+  {
+    content:
+      'fe novapo ujn hey jude don make it bad take a sad song anhd mkaer it butet ',
+    username: 'novapo',
+    socketId: 'novapo',
+  },
+  {
+    content: 'aka xade left rrihg ticog lnova hilarray ',
+    username: 'mocnien',
+    socketId: 'mocnien',
+  },
+  {
     content:
       'fe novapo ujn hey jude don make it bad take a sad song anhd mkaer it butet ',
     username: 'novapo',
@@ -76,7 +119,7 @@ export default function DemoModalChat({}: Props) {
         onBackdropPress={() => setIsModalVisible(false)}
         swipeDirection={['up', 'left', 'right', 'down']}
         className="justify-end m-0 bg-white">
-        <ChatWrapper messages={messages} socketId={'novapo'} />
+        <ChatWrapper onClose={()=>{setIsModalVisible(false)}} messages={messages} socketId={'novapo'} />
       </Modal>
     </View>
   );
