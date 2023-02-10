@@ -69,11 +69,12 @@ export default function ChatWrapper({onClose}: Props) {
       </View>
       <View className="flex-1 ">
         <ScrollView className="px-2">
-          {messagesInChannel.map(message => {
+          {messagesInChannel.map((message, index) => {
             if (message.socketId == socket.id)
-              return <MyMessage message={message.content} />;
+              return <MyMessage key={index} message={message.content} />;
             return (
               <MemberMessage
+                key={index}
                 message={message.content}
                 username={message.username}
               />
