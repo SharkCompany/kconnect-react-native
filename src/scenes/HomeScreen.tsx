@@ -69,7 +69,7 @@ const HomePage = ({ navigation, route }: RootStackScreenProps<"Home">) => {
         <TouchableOpacity
           className="bg-[#00AC47] py-2 px-4 rounded-md w-1/2 items-center mt-10"
           onPress={() => {
-            navigation.navigate("DemoScreen");
+            navigation.navigate("EndCallScreen");
             setIsModalVisible(false);
           }}
         >

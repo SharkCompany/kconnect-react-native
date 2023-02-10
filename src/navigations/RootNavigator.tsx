@@ -26,7 +26,11 @@ const RootNavigator = (props: Props) => {
         component={HomePage}
         options={{header: () => <HomeHeader />}}
       />
-      <RootStack.Screen name="EndCallScreen" component={EndCallScreen} />
+      <RootStack.Screen
+        name="EndCallScreen"
+        component={EndCallScreen}
+        options={{headerShown: false}}
+      />
       <RootStack.Screen
         name="CallingScreen"
         component={CallingScreen}
@@ -45,7 +49,7 @@ const RootNavigator = (props: Props) => {
       <RootStack.Screen
         name="DemoScreen"
         component={DemoScreen}
-		options={{headerShown: false}}
+        options={{headerShown: false}}
       />
     </RootStack.Navigator>
   );
