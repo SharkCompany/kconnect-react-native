@@ -4,10 +4,13 @@ import {Socket} from 'socket.io-client';
 import {
   ClientToServerEvents,
   EmitJoinRoomDTO,
+  EmitNewMessageType,
+  OnNewMessageType,
   ServerToClientEvents,
 } from './socket.type';
 import {} from './MeetingContextComponent';
 import {UpdateAgora} from './meeting.type';
+import {Message} from 'models/Message';
 
 export interface IMeetingContextState {
   socket: Socket<ServerToClientEvents, ClientToServerEvents> | undefined;
@@ -20,6 +23,7 @@ export interface IMeetingContextState {
   roomDescription: string | null;
   username: string | null;
   uid: number | null;
+  messagesInChannel: Message[];
 }
 
 export const initialContextState: IMeetingContextState = {
@@ -33,14 +37,22 @@ export const initialContextState: IMeetingContextState = {
   rtmToken: null,
   username: null,
   uid: null,
+  messagesInChannel: [],
 };
 
 export type TMeetingContextActions =
   | 'update_meeting'
   | 'update_agora'
-  | 'join_room';
+  | 'join_room'
+  | 'send_message'
+  | 'new_message';
 
-export type TMeetingContextPayload = Socket | UpdateAgora | EmitJoinRoomDTO;
+export type TMeetingContextPayload =
+  | Socket
+  | UpdateAgora
+  | EmitJoinRoomDTO
+  | string
+  | Message;
 export interface IMeetingContextActions {
   type: TMeetingContextActions;
   payload: TMeetingContextPayload;
@@ -64,8 +76,23 @@ export const MeetingReducer = (
     case 'join_room':
       const data = action.payload as EmitJoinRoomDTO;
       state.socket?.emit('joinRoom', data);
-
       return state;
+    case 'send_message':
+      const mess: EmitNewMessageType = {
+        content: action.payload as string,
+        username: state.username as string,
+      };
+      console.log('send message reducer: ', mess);
+      state.socket?.emit('message', mess);
+      return state;
+    case 'new_message':
+      return {
+        ...state,
+        messagesInChannel: [
+          ...state.messagesInChannel,
+          action.payload as Message,
+        ],
+      };
     default:
       return state;
   }

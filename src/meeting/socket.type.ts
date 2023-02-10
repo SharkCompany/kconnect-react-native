@@ -1,14 +1,17 @@
 import {Member} from 'models/Member';
+import {Message} from 'models/Message';
 import {Room} from 'models/Room';
 
 export interface ServerToClientEvents {
   noArg: () => void;
   newMemberJoinRoom: (member: Member, room: Room) => void;
+  newMessageToGroup: (mess: OnNewMessageType) => void;
 }
 
 export interface ClientToServerEvents {
   hello: any;
   joinRoom: (payload: EmitJoinRoomDTO) => void;
+  message: (message: EmitNewMessageType) => void;
 }
 
 export interface EmitJoinRoomDTO {
@@ -21,3 +24,6 @@ export interface EmitJoinRoomDTO {
   offer: any;
   agoraToken: any;
 }
+
+export type OnNewMessageType = Message;
+export type EmitNewMessageType = Omit<Message, 'socketId'>;

@@ -8,7 +8,11 @@ import {
 } from 'react';
 import {io, Socket} from 'socket.io-client';
 import {initialContextState, MeetingReducer} from './MeetingContext';
-import {ClientToServerEvents, ServerToClientEvents} from './socket.type';
+import {
+  ClientToServerEvents,
+  OnNewMessageType,
+  ServerToClientEvents,
+} from './socket.type';
 
 import {MeetingContextProvider} from './MeetingContext';
 import {SOCKET_ENDPOINT} from 'api/endpoint';
@@ -50,10 +54,19 @@ const MeetingContextComponent: FunctionComponent<
   const startListening = useCallback(() => {
     socket.on('connect', () => {
       console.log('hi id: ', socket.id);
+      socket.on('newMemberJoinRoom', (member: Member, room: Room) => {
+        console.log('newMemberJoinRoom:', member, room);
+      });
+  
+      socket.on('newMessageToGroup', (mess: OnNewMessageType) => {
+        console.log('newMessageToGroup', mess);
+        MeetingDispatch({
+          type: 'new_message',
+          payload: mess,
+        });
+      });
     });
-    socket.on('newMemberJoinRoom', (member: Member, room: Room) => {
-      console.log('newMemberJoinRoom:', member, room);
-    });
+
   }, []);
 
   return (
